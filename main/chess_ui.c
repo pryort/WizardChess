@@ -40,6 +40,7 @@ void create_chessboard(void) {
 
     lv_obj_t * label = lv_label_create(btn);
     lv_label_set_text(label, "Test");
+    lv_obj_center(label);
 
     lv_obj_add_event_cb(btn, square_event_handler, LV_EVENT_CLICKED, NULL);
 
