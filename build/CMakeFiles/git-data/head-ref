@@ -1,1 +1,8 @@
-f08d04ea14809218c353958a8aaf99e13a2a7c25
+0000000000000000000000000000000000000000 53e49e44f02034de84abf968255c69df1817e0ee Trae Pryor <pryort@purdue.edu> 1759409063 -0400	commit (initial): Initial commit
+53e49e44f02034de84abf968255c69df1817e0ee b2c18e64fe325603855bba5112dbb1565ae21859 pryort <pryort@purdue.edu> 1759409872 -0400	pull origin main --allow-unrelated-histories: Merge made by the 'ort' strategy.
+b2c18e64fe325603855bba5112dbb1565ae21859 deb9fa3d3b0f831ec2fb2939aa379f62a1775a23 pryort <pryort@purdue.edu> 1759411067 -0400	commit: center test button
+deb9fa3d3b0f831ec2fb2939aa379f62a1775a23 914a6ee9a8224e72bccf2ae9f614c7b6f7f8844c pryort <pryort@purdue.edu> 1759411076 -0400	pull --tags origin main: Merge made by the 'ort' strategy.
+914a6ee9a8224e72bccf2ae9f614c7b6f7f8844c c43053e4900e7fc743a6ea8609d538b651ad62c7 pryort <pryort@purdue.edu> 1759411566 -0400	commit: button color changes
+c43053e4900e7fc743a6ea8609d538b651ad62c7 5fd29a88e5a66d04c8fbc7341216637afb884dcc pryort <pryort@purdue.edu> 1759411678 -0400	commit: idk
+5fd29a88e5a66d04c8fbc7341216637afb884dcc f08d04ea14809218c353958a8aaf99e13a2a7c25 pryort <pryort@purdue.edu> 1759412221 -0400	commit: maybe broken
+f08d04ea14809218c353958a8aaf99e13a2a7c25 e68444d69094a40e9711030fa0c322adbba5397b pryort <pryort@purdue.edu> 1759424918 -0400	commit: initial chess board squares

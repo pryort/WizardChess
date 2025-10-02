@@ -73,8 +73,6 @@ void create_starting_menu(void) {
     // button pressed color
     lv_obj_set_style_bg_color(btn1, lv_color_hex(0xFFD700), LV_PART_MAIN | LV_STATE_PRESSED);
 
-    lv_obj_add_event_cb(btn1, button_event_handler, LV_EVENT_CLICKED, NULL);
-
     lv_obj_t * lbl1 = lv_label_create(btn1);
     lv_label_set_text(lbl1, "PHYSICAL PIECE MOVEMENT");
     lv_obj_center(lbl1);
@@ -90,8 +88,6 @@ void create_starting_menu(void) {
     // button pressed color
     lv_obj_set_style_bg_color(btn2, lv_color_hex(0xFFD700), LV_PART_MAIN | LV_STATE_PRESSED);
     
-    lv_obj_add_event_cb(btn2, button_event_handler, LV_EVENT_CLICKED, NULL);
-
     lv_obj_t * lbl2 = lv_label_create(btn2);
     lv_label_set_text(lbl2, "USER INTERFACE");
     lv_obj_center(lbl2);
