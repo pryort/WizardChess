@@ -36,9 +36,9 @@ void create_chessboard(void) {
     lv_obj_set_pos(btn, 300, 150);
 
     // sets default color
-    lv_obj_set_style_bg_color(target, lv_color_hex(0x007BFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0x007BFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     // changes color of clicked button 
-    lv_obj_set_style_bg_color(target, lv_color_hex(0xFFD700), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0xFFD700), LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t * label = lv_label_create(btn);
     lv_label_set_text(label, "Test");
