@@ -20,9 +20,6 @@ static void square_event_handler(lv_event_t * e) {
 
     lv_obj_set_pos(target, x, y);
 
-    // changes color of clicked button
-    lv_obj_set_style_bg_color(target, lv_color_hex(0xFFD700), 0);
-
     printf("Button moved to (%d, %d)\n", x, y);
 }
 
@@ -37,6 +34,11 @@ void create_chessboard(void) {
     lv_obj_t * btn = lv_btn_create(scr);
     lv_obj_set_size(btn, 80, 80);
     lv_obj_set_pos(btn, 300, 150);
+
+    // sets default color
+    lv_obj_set_style_bg_color(target, lv_color_hex(0x007BFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // changes color of clicked button 
+    lv_obj_set_style_bg_color(target, lv_color_hex(0xFFD700), LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t * label = lv_label_create(btn);
     lv_label_set_text(label, "Test");
