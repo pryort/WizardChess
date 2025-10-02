@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
-  include("C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
+  include("C:/Users/traep/wizard_chess/display/build/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
+  include("C:/Users/traep/wizard_chess/display/build/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
 
 endif()
 

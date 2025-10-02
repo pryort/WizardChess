@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/traep/wizard_chess/display/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

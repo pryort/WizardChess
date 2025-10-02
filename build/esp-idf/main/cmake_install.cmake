@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/main
+# Install script for directory: C:/Users/traep/wizard_chess/display/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

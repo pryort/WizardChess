@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/CMakeFiles/bootloader"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/CMakeFiles/bootloader.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "C:/Users/traep/Downloads/ESP32-S3-Touch-LCD-4.3-Demo/ESP32-S3-Touch-LCD-4.3-Demo/ESP-IDF/08_lvgl_Porting/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

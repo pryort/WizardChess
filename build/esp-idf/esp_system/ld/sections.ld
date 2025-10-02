@@ -1,6 +1,6 @@
 /* Automatically generated file; DO NOT EDIT */
 /* Espressif IoT Development Framework Linker Script */
-/* Generated from: C:\Users\traep\Downloads\ESP32-S3-Touch-LCD-4.3-Demo\ESP32-S3-Touch-LCD-4.3-Demo\ESP-IDF\08_lvgl_Porting\build\esp-idf\esp_system\ld\sections.ld.in */
+/* Generated from: C:\Users\traep\wizard_chess\display\build\esp-idf\esp_system\ld\sections.ld.in */
 
 /*
 

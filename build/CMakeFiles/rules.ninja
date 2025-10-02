@@ -1963,7 +1963,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_main_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\traep\.espressif\tools\cmake\3.30.2\bin\cmake.exe --regenerate-during-build -SC:\Users\traep\Downloads\ESP32-S3-Touch-LCD-4.3-Demo\ESP32-S3-Touch-LCD-4.3-Demo\ESP-IDF\08_lvgl_Porting -BC:\Users\traep\Downloads\ESP32-S3-Touch-LCD-4.3-Demo\ESP32-S3-Touch-LCD-4.3-Demo\ESP-IDF\08_lvgl_Porting\build
+  command = C:\Users\traep\.espressif\tools\cmake\3.30.2\bin\cmake.exe --regenerate-during-build -SC:\Users\traep\wizard_chess\display -BC:\Users\traep\wizard_chess\display\build
   description = Re-running CMake...
   generator = 1
 
