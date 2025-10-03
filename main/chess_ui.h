@@ -7,7 +7,11 @@ extern "C" {
 
 #include "lvgl.h"
 
-void create_chessboard(void);
+void create_chessboard(char mode);
+
+void back_event(lv_event_t * e);
+
+void square_event_handler(lv_event_t * e);
 
 #ifdef __cplusplus
 extern "C" {

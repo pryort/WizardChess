@@ -1,5 +1,6 @@
 #include "chess_ui.h"
 #include "user_gameplay.h"
+#include "color_pick.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "esp_random.h"
@@ -16,7 +17,16 @@ static lv_obj_t *last_btn = NULL;
 static lv_obj_t *board_square[BOARD_W][BOARD_W];
 static lv_obj_t *board_piece[BOARD_W][BOARD_W];
 
-static void square_event_handler(lv_event_t * e) {
+void back_event(lv_event_t * e) {
+    if (lv_event_get_code(e) != LV_EVENT_CLICKED) return;
+
+    char *mode = lv_event_get_user_data(e);
+    printf("Back button to color choice\n");
+    color_choice_menu(*mode);
+    
+}
+
+void square_event_handler(lv_event_t * e) {
     if (lv_event_get_code(e) != LV_EVENT_CLICKED) return;
 
     lv_obj_t *btn = lv_event_get_target(e);
@@ -34,12 +44,15 @@ static void square_event_handler(lv_event_t * e) {
     printf("Square clicked\n");
 }
 
-void create_chessboard(void) {
+void create_chessboard(char mode) {
     // sets screen to white
     lv_obj_t *scr = lv_obj_create(NULL);
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_style_bg_color(scr, lv_color_hex(0xFFFFFF), 0);
     lv_scr_load(scr);
+
+    char *data = lv_mem_alloc(sizeof(char));
+    *data = mode;
 
     // creates chess board
     for (int i = 0; i < BOARD_W; i++) {
@@ -104,5 +117,5 @@ void create_chessboard(void) {
     lv_label_set_text(back_lbl, "Back");
     lv_obj_center(back_lbl);
 
-    lv_obj_add_event_cb(back_btn, button_event_handler, LV_EVENT_CLICKED, (void*)99);
+    lv_obj_add_event_cb(back_btn, back_event, LV_EVENT_CLICKED, data);
 }

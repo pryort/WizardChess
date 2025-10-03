@@ -7,6 +7,7 @@
 #include "waveshare_rgb_lcd_port.h"
 #include "chess_ui.h"
 #include "user_gameplay.h"
+#include "color_pick.h"
 
 void app_main()
 {

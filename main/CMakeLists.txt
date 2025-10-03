@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "user_gameplay.c" "chess_ui.c" "waveshare_rgb_lcd_port.c" "main.c" "lvgl_port.c"
+    SRCS "color_pick.c" "user_gameplay.c" "chess_ui.c" "waveshare_rgb_lcd_port.c" "main.c" "lvgl_port.c"
     INCLUDE_DIRS ".")
 
 idf_component_get_property(lvgl_lib lvgl__lvgl COMPONENT_LIB)

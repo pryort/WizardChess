@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "lvgl_porting",
-    "project_version":    "e68444d-dirty",
+    "project_version":    "b59ce13-dirty",
     "project_path":       "C:/Users/traep/wizard_chess/display",
     "idf_path":           "C:/Users/traep/esp/v5.5.1/esp-idf",
     "build_dir":          "C:/Users/traep/wizard_chess/display/build",
@@ -1270,7 +1270,7 @@
             "managed_reqs": [ "lvgl__lvgl" ],
             "managed_priv_reqs": [ "espressif__esp_lcd_touch_gt911" ],
             "file": "C:/Users/traep/wizard_chess/display/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/traep/wizard_chess/display/main/user_gameplay.c", "C:/Users/traep/wizard_chess/display/main/chess_ui.c", "C:/Users/traep/wizard_chess/display/main/waveshare_rgb_lcd_port.c", "C:/Users/traep/wizard_chess/display/main/main.c", "C:/Users/traep/wizard_chess/display/main/lvgl_port.c" ],
+            "sources": [ "C:/Users/traep/wizard_chess/display/main/color_pick.c", "C:/Users/traep/wizard_chess/display/main/user_gameplay.c", "C:/Users/traep/wizard_chess/display/main/chess_ui.c", "C:/Users/traep/wizard_chess/display/main/waveshare_rgb_lcd_port.c", "C:/Users/traep/wizard_chess/display/main/main.c", "C:/Users/traep/wizard_chess/display/main/lvgl_port.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
