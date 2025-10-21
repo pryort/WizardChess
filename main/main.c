@@ -5,29 +5,16 @@
  */
 
 #include "waveshare_rgb_lcd_port.h"
-#include "chess_ui.h"
 #include "user_gameplay.h"
-#include "color_pick.h"
+
 
 void app_main()
 {
     waveshare_esp32_s3_rgb_lcd_init(); // Initialize the Waveshare ESP32-S3 RGB LCD 
-    // wavesahre_rgb_lcd_bl_on();  //Turn on the screen backlight 
-    // wavesahre_rgb_lcd_bl_off(); //Turn off the screen backlight 
-    
     ESP_LOGI(TAG, "Display LVGL demos");
-    // Lock the mutex due to the LVGL APIs are not thread-safe
+    // Lock the mutex
     if (lvgl_port_lock(-1)) {
-        // lv_demo_stress();
-        // lv_demo_benchmark();
-        // lv_demo_music();
-        // lv_demo_widgets();
-        // example_lvgl_demo_ui();
-        // Release the mutex
-
         create_starting_menu();
-        // create_chessboard();
-
         lvgl_port_unlock();
     }
 }
