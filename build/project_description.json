@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "lvgl_porting",
-    "project_version":    "327d201-dirty",
+    "project_version":    "fd3cb85-dirty",
     "project_path":       "C:/Users/traep/wizard_chess/display",
     "idf_path":           "C:/Users/traep/esp/v5.5.1/esp-idf",
     "build_dir":          "C:/Users/traep/wizard_chess/display/build",
