@@ -100,7 +100,9 @@ void square_event_handler(lv_event_t *e) {
             printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
             printf("%s\n", text);
             lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+            tx_data[0] = 0xAA;
             tx_data[1] = 16*ud->row + ud->col;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             last_btn = btn;
         }
     }
@@ -109,7 +111,9 @@ void square_event_handler(lv_event_t *e) {
             printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
             printf("%s\n", text);
             lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+            tx_data[0] = 0xAA;
             tx_data[1] = 16*ud->row + ud->col;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             last_btn = btn;
         }
     }
