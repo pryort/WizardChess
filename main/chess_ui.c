@@ -62,62 +62,62 @@ void square_event_handler(lv_event_t *e) {
     const char *text = lv_label_get_text(label);
     btn_userdata_t *ud = lv_obj_get_user_data(btn);
     uint8_t tx_data[] = {0xAA, 0x00};
+    //if (ud->user_turn) {
+        if (last_btn != NULL) {
+            tx_data[0] = 0xFF;
+            lv_obj_t *last_label = lv_obj_get_child(last_btn, 0);
+            const char *last_text = lv_label_get_text(last_label);
+            btn_userdata_t *last_ud = lv_obj_get_user_data(last_btn);
+            lv_obj_set_style_bg_color(last_btn, last_ud->default_color, LV_PART_MAIN);
+            if (ud->user_color == '1') {
+                if(strcmp(text, "♔") && strcmp(text, "♕") && strcmp(text, "♖") && strcmp(text, "♗") && strcmp(text, "♘") && strcmp(text, "♙")) {
+                    printf("legal move\n");
+                    lv_label_set_text(label, last_text);
+                    lv_label_set_text(last_label, "");
+                    printf("move to (%d, %d)\n", ud->row, ud->col);
+                    last_btn = NULL;
+                    tx_data[1] = 16*ud->row + ud->col;
+                    i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                    return;
+                }
+            }
+            else {
+                if(strcmp(text, "♚") && strcmp(text, "♛") && strcmp(text, "♜") && strcmp(text, "♝") && strcmp(text, "♞") && strcmp(text, "♟")) {
+                    printf("legal move\n");
+                    lv_label_set_text(label, last_text);
+                    lv_label_set_text(last_label, "");
+                    printf("move to (%d, %d)\n", ud->row, ud->col);
+                    last_btn = NULL;
+                    tx_data[1] = 16*ud->row + ud->col;
+                    i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                    return;
+                }
+            }
+        }
 
-    if (last_btn != NULL) {
-        tx_data[0] = 0xFF;
-        lv_obj_t *last_label = lv_obj_get_child(last_btn, 0);
-        const char *last_text = lv_label_get_text(last_label);
-        btn_userdata_t *last_ud = lv_obj_get_user_data(last_btn);
-        lv_obj_set_style_bg_color(last_btn, last_ud->default_color, LV_PART_MAIN);
         if (ud->user_color == '1') {
-            if(strcmp(text, "♔") && strcmp(text, "♕") && strcmp(text, "♖") && strcmp(text, "♗") && strcmp(text, "♘") && strcmp(text, "♙")) {
-                printf("legal move\n");
-                lv_label_set_text(label, last_text);
-                lv_label_set_text(last_label, "");
-                printf("move to (%d, %d)\n", ud->row, ud->col);
-                last_btn = NULL;
+            if(strcmp(text, "♔") == 0 || strcmp(text, "♕") == 0 || strcmp(text, "♖") == 0 || strcmp(text, "♗") == 0 || strcmp(text, "♘") == 0 || strcmp(text, "♙") == 0) {
+                printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
+                printf("%s\n", text);
+                lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+                tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-                return;
+                last_btn = btn;
             }
         }
         else {
-            if(strcmp(text, "♚") && strcmp(text, "♛") && strcmp(text, "♜") && strcmp(text, "♝") && strcmp(text, "♞") && strcmp(text, "♟")) {
-                printf("legal move\n");
-                lv_label_set_text(label, last_text);
-                lv_label_set_text(last_label, "");
-                printf("move to (%d, %d)\n", ud->row, ud->col);
-                last_btn = NULL;
+            if(strcmp(text, "♚") == 0 || strcmp(text, "♛") == 0 || strcmp(text, "♜") == 0 || strcmp(text, "♝") == 0 || strcmp(text, "♞") == 0 || strcmp(text, "♟") == 0) {
+                printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
+                printf("%s\n", text);
+                lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+                tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-                return;
+                last_btn = btn;
             }
         }
-    }
-
-    if (ud->user_color == '1') {
-        if(strcmp(text, "♔") == 0 || strcmp(text, "♕") == 0 || strcmp(text, "♖") == 0 || strcmp(text, "♗") == 0 || strcmp(text, "♘") == 0 || strcmp(text, "♙") == 0) {
-            printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
-            printf("%s\n", text);
-            lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
-            tx_data[0] = 0xAA;
-            tx_data[1] = 16*ud->row + ud->col;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            last_btn = btn;
-        }
-    }
-    else {
-        if(strcmp(text, "♚") == 0 || strcmp(text, "♛") == 0 || strcmp(text, "♜") == 0 || strcmp(text, "♝") == 0 || strcmp(text, "♞") == 0 || strcmp(text, "♟") == 0) {
-            printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
-            printf("%s\n", text);
-            lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
-            tx_data[0] = 0xAA;
-            tx_data[1] = 16*ud->row + ud->col;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            last_btn = btn;
-        }
-    }
-
+    //}
     
 
     printf("Square clicked\n");
@@ -131,6 +131,7 @@ void create_chessboard(char *mode) {
     lv_scr_load(scr);
     printf("mode %c, color %c\n", mode[0], mode[1]);
     uint8_t tx_data[] = {0x3D, 0x00};
+    bool user_turn = false;
     
 
     if(mode[0] == 'u') {
@@ -162,8 +163,8 @@ void create_chessboard(char *mode) {
                 // allocates memory for buttons
                 btn_userdata_t *ud = lv_mem_alloc(sizeof(btn_userdata_t));
                 ud->default_color = def_col;
-                ud->row = i;
-                ud->col = j;
+                ud->row = j;
+                ud->col = i;
                 ud->user_color = mode[1];
                 lv_obj_set_user_data(btn, ud);
                 lv_obj_add_event_cb(btn, square_event_handler, LV_EVENT_ALL, ud);
@@ -176,16 +177,6 @@ void create_chessboard(char *mode) {
             tx_data[1] = 0x22;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is white\n");
-
-            lv_obj_t *demo_btn = lv_btn_create(scr);
-            lv_obj_set_size(demo_btn, 120, 60);
-            lv_obj_set_pos(demo_btn, 650, 400);
-
-            lv_obj_t *demo_lbl = lv_label_create(demo_btn);
-            lv_label_set_text(demo_lbl, "Demo");
-            lv_obj_center(demo_lbl);
-
-            lv_obj_add_event_cb(demo_btn, update_board_white, LV_EVENT_CLICKED, demo_board_white);
 
             for (int i = 0; i < BOARD_W; i++) {
                 // ♟ black pawn
@@ -249,16 +240,6 @@ void create_chessboard(char *mode) {
             tx_data[1] = 0x21;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is black\n");
-
-            lv_obj_t *demo_btn = lv_btn_create(scr);
-            lv_obj_set_size(demo_btn, 120, 60);
-            lv_obj_set_pos(demo_btn, 650, 400);
-
-            lv_obj_t *demo_lbl = lv_label_create(demo_btn);
-            lv_label_set_text(demo_lbl, "Demo");
-            lv_obj_center(demo_lbl);
-
-            lv_obj_add_event_cb(demo_btn, update_board_black, LV_EVENT_CLICKED, demo_board_black);
 
             for (int i = 0; i < BOARD_W; i++) {
                 // ♙ white pawn
@@ -358,16 +339,6 @@ void create_chessboard(char *mode) {
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is white\n");
 
-            lv_obj_t *demo_btn = lv_btn_create(scr);
-            lv_obj_set_size(demo_btn, 120, 60);
-            lv_obj_set_pos(demo_btn, 650, 400);
-
-            lv_obj_t *demo_lbl = lv_label_create(demo_btn);
-            lv_label_set_text(demo_lbl, "Demo");
-            lv_obj_center(demo_lbl);
-
-            lv_obj_add_event_cb(demo_btn, update_board_white, LV_EVENT_CLICKED, demo_board_white);
-
             for (int i = 0; i < BOARD_W; i++) {
                 // ♟ black pawn
                 lv_label_set_text(board_piece[i][row], "♟");
@@ -430,16 +401,6 @@ void create_chessboard(char *mode) {
             tx_data[1] = 0x11;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is black\n");
-
-            lv_obj_t *demo_btn = lv_btn_create(scr);
-            lv_obj_set_size(demo_btn, 120, 60);
-            lv_obj_set_pos(demo_btn, 650, 400);
-
-            lv_obj_t *demo_lbl = lv_label_create(demo_btn);
-            lv_label_set_text(demo_lbl, "Demo");
-            lv_obj_center(demo_lbl);
-
-            lv_obj_add_event_cb(demo_btn, update_board_black, LV_EVENT_CLICKED, demo_board_black);
 
             for (int i = 0; i < BOARD_W; i++) {
                 // ♙ white pawn
