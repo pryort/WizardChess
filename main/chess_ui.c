@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "esp_random.h"
 #include "driver/i2c.h"
+#include "i2c_main.h"
 
 #define X_START 150
 #define BUTTON_W 60
@@ -60,8 +61,10 @@ void square_event_handler(lv_event_t *e) {
     lv_obj_t *label = lv_obj_get_child(btn, 0);
     const char *text = lv_label_get_text(label);
     btn_userdata_t *ud = lv_obj_get_user_data(btn);
+    uint8_t tx_data[] = {0xAA, 0x00};
 
     if (last_btn != NULL) {
+        tx_data[0] = 0xFF;
         lv_obj_t *last_label = lv_obj_get_child(last_btn, 0);
         const char *last_text = lv_label_get_text(last_label);
         btn_userdata_t *last_ud = lv_obj_get_user_data(last_btn);
@@ -73,6 +76,8 @@ void square_event_handler(lv_event_t *e) {
                 lv_label_set_text(last_label, "");
                 printf("move to (%d, %d)\n", ud->row, ud->col);
                 last_btn = NULL;
+                tx_data[1] = 16*ud->row + ud->col;
+                i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                 return;
             }
         }
@@ -83,6 +88,8 @@ void square_event_handler(lv_event_t *e) {
                 lv_label_set_text(last_label, "");
                 printf("move to (%d, %d)\n", ud->row, ud->col);
                 last_btn = NULL;
+                tx_data[1] = 16*ud->row + ud->col;
+                i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                 return;
             }
         }
@@ -93,6 +100,7 @@ void square_event_handler(lv_event_t *e) {
             printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
             printf("%s\n", text);
             lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+            tx_data[1] = 16*ud->row + ud->col;
             last_btn = btn;
         }
     }
@@ -101,6 +109,7 @@ void square_event_handler(lv_event_t *e) {
             printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
             printf("%s\n", text);
             lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
+            tx_data[1] = 16*ud->row + ud->col;
             last_btn = btn;
         }
     }
@@ -117,6 +126,8 @@ void create_chessboard(char *mode) {
     lv_obj_set_style_bg_color(scr, lv_color_hex(0xFFFFFF), 0);
     lv_scr_load(scr);
     printf("mode %c, color %c\n", mode[0], mode[1]);
+    uint8_t tx_data[] = {0x3D, 0x00};
+    
 
     if(mode[0] == 'u') {
         // creates chess board
@@ -158,6 +169,8 @@ void create_chessboard(char *mode) {
         // sets pieces in starting order
         int row = 1;
         if(mode[1] == '1') {
+            tx_data[1] = 0x22;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is white\n");
 
             lv_obj_t *demo_btn = lv_btn_create(scr);
@@ -229,6 +242,8 @@ void create_chessboard(char *mode) {
             lv_label_set_text(board_piece[7][7], "♖");
         }
         else {
+            tx_data[1] = 0x21;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is black\n");
 
             lv_obj_t *demo_btn = lv_btn_create(scr);
@@ -335,6 +350,8 @@ void create_chessboard(char *mode) {
         // sets pieces in starting order
         int row = 1;
         if(mode[1] == '1') {
+            tx_data[1] = 0x12;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is white\n");
 
             lv_obj_t *demo_btn = lv_btn_create(scr);
@@ -406,6 +423,8 @@ void create_chessboard(char *mode) {
             lv_label_set_text(board_piece[7][7], "♖");
         }
         else {
+            tx_data[1] = 0x11;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is black\n");
 
             lv_obj_t *demo_btn = lv_btn_create(scr);
