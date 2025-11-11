@@ -1,4 +1,35 @@
-// i2c_main.c (legacy/old API)
+/*I2C Data translation
+    Initial start up sends A1 B2 C3 to slave
+
+    After user selects piece movement and color the data is sent in the form:
+    3D ##
+    where 3D is the preamble, and the first number:
+    1: physical piece movement
+    2: user interface
+    3: online
+    the second number:
+    1: black
+    2: white
+
+    When a piece is selected the data is sent in the form:
+    AA ##
+    where AA is the preamble
+    first number indicate the column
+    second number indicates the row
+    following this form:
+    00 10 20 30 40 50 60 70
+    01 11 21 31 41 51 61 71
+    02 12 22 32 42 52 62 72
+    03 13 23 33 43 53 63 73
+    04 14 24 34 44 54 64 74
+    05 15 25 35 45 55 65 75
+    06 16 26 36 46 56 66 76
+    07 17 27 37 47 57 67 77
+
+    When a piece is moved, the last selected piece is the one moved, and the data is sent in the form:
+    FF ##
+    where FF is the preamble and the location follows the same form as for the selected piece
+    */
 #include "driver/i2c.h"
 #include "esp_log.h"
 
