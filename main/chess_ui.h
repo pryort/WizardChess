@@ -9,13 +9,11 @@ extern "C" {
 
 void create_chessboard(char *mode);
 
-void back_event(lv_event_t * e);
+void back_event(lv_event_t *e);
 
-void square_event_handler(lv_event_t * e);
+void square_event_handler(lv_event_t *e);
 
-void update_board_white(lv_event_t * e);
-
-void update_board_black(lv_event_t * e);
+void update_board(void);
 
 #ifdef __cplusplus
 extern "C" {

@@ -17,6 +17,7 @@ typedef struct {
     int row;
     int col;
     char user_color;
+    bool *user_turn;
 } btn_userdata_t;
 
 static uint8_t demo_board_white[8][8] = {
@@ -44,6 +45,7 @@ static uint8_t demo_board_black[8][8] = {
 static lv_obj_t *last_btn = NULL;
 static lv_obj_t *board_square[BOARD_W][BOARD_W];
 static lv_obj_t *board_piece[BOARD_W][BOARD_W];
+static bool user_turn_flag = false;
 
 void back_event(lv_event_t *e) {
     if (lv_event_get_code(e) != LV_EVENT_CLICKED) return;
@@ -62,7 +64,7 @@ void square_event_handler(lv_event_t *e) {
     const char *text = lv_label_get_text(label);
     btn_userdata_t *ud = lv_obj_get_user_data(btn);
     uint8_t tx_data[] = {0xAA, 0x00};
-    //if (ud->user_turn) {
+    if (*ud->user_turn) {
         if (last_btn != NULL) {
             tx_data[0] = 0xFF;
             lv_obj_t *last_label = lv_obj_get_child(last_btn, 0);
@@ -78,6 +80,8 @@ void square_event_handler(lv_event_t *e) {
                     last_btn = NULL;
                     tx_data[1] = 16*ud->row + ud->col;
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                    user_turn_flag = false;
+                    update_board();
                     return;
                 }
             }
@@ -90,6 +94,8 @@ void square_event_handler(lv_event_t *e) {
                     last_btn = NULL;
                     tx_data[1] = 16*ud->row + ud->col;
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                    user_turn_flag = false;
+                    update_board();
                     return;
                 }
             }
@@ -103,6 +109,7 @@ void square_event_handler(lv_event_t *e) {
                 tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                user_turn_flag = true;
                 last_btn = btn;
             }
         }
@@ -114,10 +121,11 @@ void square_event_handler(lv_event_t *e) {
                 tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+                user_turn_flag = true;
                 last_btn = btn;
             }
         }
-    //}
+    }
     
 
     printf("Square clicked\n");
@@ -166,6 +174,7 @@ void create_chessboard(char *mode) {
                 ud->row = j;
                 ud->col = i;
                 ud->user_color = mode[1];
+                ud->user_turn = &user_turn_flag;
                 lv_obj_set_user_data(btn, ud);
                 lv_obj_add_event_cb(btn, square_event_handler, LV_EVENT_ALL, ud);
             }
@@ -177,6 +186,7 @@ void create_chessboard(char *mode) {
             tx_data[1] = 0x22;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is white\n");
+            user_turn_flag = true;
 
             for (int i = 0; i < BOARD_W; i++) {
                 // ♟ black pawn
@@ -240,6 +250,7 @@ void create_chessboard(char *mode) {
             tx_data[1] = 0x21;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             printf("user is black\n");
+            user_turn_flag = false;
 
             for (int i = 0; i < BOARD_W; i++) {
                 // ♙ white pawn
@@ -298,6 +309,7 @@ void create_chessboard(char *mode) {
 
             // ♜ black rook
             lv_label_set_text(board_piece[7][7], "♜");
+            update_board();
         }
     }
     else {
@@ -491,7 +503,7 @@ void create_chessboard(char *mode) {
     lv_obj_add_event_cb(back_btn, back_event, LV_EVENT_CLICKED, mode);
 }
 
-void update_board_white(lv_event_t *e) {
+/*void update_board_white(lv_event_t *e) {
     uint8_t (*board)[8] = lv_event_get_user_data(e);
 
     const char *pieces[] = {
@@ -511,24 +523,46 @@ void update_board_white(lv_event_t *e) {
         }
         printf("\n");
     }
-}
+}*/
 
-void update_board_black(lv_event_t *e) {
-    uint8_t (*board)[8] = lv_event_get_user_data(e);
+void update_board() {
+    //uint8_t (*board)[8] = lv_event_get_user_data(e);
 
     const char *pieces[] = {
-        "", "♔", "♕", "♖", "♗", "♘", "♙", "♚", "♛", "♜", "♝", "♞", "♟"
+        "", "♟", "♝", "♞", "♜", "♛", "♚", "♙", "♗", "♘", "♖", "♕", "♔"
     };
+
+    uint8_t new_board[33] = {0};
+    i2c_comm_read(0x67, new_board, sizeof(new_board));
+    
+    if(new_board[0] != 0xAA) {
+        printf("wrong format %X\n", new_board[0]);
+        for(int i = 0; i < 34; i++) {
+            printf("%02X", new_board[i]);
+        }
+        printf("\n");
+        return;
+    }
+
+    uint8_t squares[64];
+
+    for(int i = 0; i < 32; i++) {
+        uint8_t b = new_board[i + 1];
+        squares[2*i] = (b >> 4) & 0x0F;
+        squares[2*i + 1] = b & 0x0F;
+    }
+
+
 
     printf("Board state received:\n");
     for (int i = 0; i < BOARD_W; i++) {
         for (int j = 0; j < BOARD_W; j++) {
-            lv_label_set_text(board_piece[j][i], pieces[board[i][j]]);
-            if(strcmp(pieces[board[i][j]], "") == 0) {
+            lv_label_set_text(board_piece[j][i], pieces[squares[8*i+j]]);
+            if(strcmp(pieces[squares[i+j]], "") == 0) {
                 printf("  ");
             }
             else {
-                printf("%s ", pieces[board[i][j]]);
+                printf("%s ", pieces[squares[i+j]]);
             }
         }
         printf("\n");
