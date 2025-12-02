@@ -20,28 +20,6 @@ typedef struct {
     bool *user_turn;
 } btn_userdata_t;
 
-static uint8_t demo_board_white[8][8] = {
-    {9, 11, 10, 8, 7, 10, 11, 9},
-    {12, 12, 12, 12, 0, 12, 12, 12},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 12, 0, 0, 0},
-    {0, 0, 0, 0, 6, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {6, 6, 6, 6, 0, 6, 6, 6},
-    {3, 5, 4, 2, 1, 4, 5, 3}
-};
-
-static uint8_t demo_board_black[8][8] = {
-    {3, 5, 4, 1, 2, 4, 5, 3},
-    {6, 6, 6, 6, 0, 6, 6, 6},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 6, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {12, 12, 12, 12, 12, 12, 12, 12},
-    {9, 11, 10, 7, 8, 10, 11, 9}
-};
-
 static lv_obj_t *last_btn = NULL;
 static lv_obj_t *board_square[BOARD_W][BOARD_W];
 static lv_obj_t *board_piece[BOARD_W][BOARD_W];
@@ -183,11 +161,6 @@ void create_chessboard(char *mode) {
         // sets pieces in starting order
         int row = 1;
         if(mode[1] == '1') {
-            tx_data[1] = 0x22;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            printf("user is white\n");
-            user_turn_flag = true;
-
             for (int i = 0; i < BOARD_W; i++) {
                 // ♟ black pawn
                 lv_label_set_text(board_piece[i][row], "♟");
@@ -245,13 +218,13 @@ void create_chessboard(char *mode) {
 
             // ♖ white rook
             lv_label_set_text(board_piece[7][7], "♖");
+            
+            tx_data[1] = 0x22;
+            printf("user is white\n");
+            user_turn_flag = true;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
         }
         else {
-            tx_data[1] = 0x21;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            printf("user is black\n");
-            user_turn_flag = false;
-
             for (int i = 0; i < BOARD_W; i++) {
                 // ♙ white pawn
                 lv_label_set_text(board_piece[i][row], "♙");
@@ -309,6 +282,11 @@ void create_chessboard(char *mode) {
 
             // ♜ black rook
             lv_label_set_text(board_piece[7][7], "♜");
+
+            tx_data[1] = 0x21;
+            printf("user is black\n");
+            user_turn_flag = false;
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
             update_board();
         }
     }
@@ -347,10 +325,6 @@ void create_chessboard(char *mode) {
         // sets pieces in starting order
         int row = 1;
         if(mode[1] == '1') {
-            tx_data[1] = 0x12;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            printf("user is white\n");
-
             for (int i = 0; i < BOARD_W; i++) {
                 // ♟ black pawn
                 lv_label_set_text(board_piece[i][row], "♟");
@@ -408,12 +382,12 @@ void create_chessboard(char *mode) {
 
             // ♖ white rook
             lv_label_set_text(board_piece[7][7], "♖");
+
+            tx_data[1] = 0x12;
+            printf("user is white\n");
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
         }
         else {
-            tx_data[1] = 0x11;
-            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-            printf("user is black\n");
-
             for (int i = 0; i < BOARD_W; i++) {
                 // ♙ white pawn
                 lv_label_set_text(board_piece[i][row], "♙");
@@ -471,6 +445,10 @@ void create_chessboard(char *mode) {
 
             // ♜ black rook
             lv_label_set_text(board_piece[7][7], "♜");
+
+            tx_data[1] = 0x11;
+            printf("user is black\n");
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
         }
     }
 
@@ -537,7 +515,7 @@ void update_board() {
     
     if(new_board[0] != 0xAA) {
         printf("wrong format %X\n", new_board[0]);
-        for(int i = 0; i < 34; i++) {
+        for(int i = 0; i < 32; i++) {
             printf("%02X", new_board[i]);
         }
         printf("\n");

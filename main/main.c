@@ -9,10 +9,12 @@ void app_main()
 
     ESP_ERROR_CHECK(i2c_comm_init());
 
+    vTaskDelay(pdMS_TO_TICKS(1000));
+
     uint8_t tx_data[] = {0xA1, 0xB2, 0xC3};
     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
 
-    vTaskDelay(pdMS_TO_TICKS(10));
+    
 
     uint8_t rx_data[3] = {0};
     i2c_comm_read(0x67, rx_data, sizeof(rx_data));

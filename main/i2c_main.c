@@ -34,12 +34,11 @@
 #include "esp_log.h"
 
 #define I2C_PORT_SHARED       I2C_NUM_0   // reuse same port as GT911
-#define I2C_SHARED_SDA_IO     8           // do not reconfigure
+#define I2C_SHARED_SDA_IO     8
 #define I2C_SHARED_SCL_IO     9
 
 static const char *TAG = "i2c_shared";
 
-// Do NOT install or reconfigure the driver for shared bus
 esp_err_t i2c_comm_init(void)
 {
     ESP_LOGI(TAG, "Reusing I2C port %d (pins already owned by display/touch).", I2C_PORT_SHARED);
