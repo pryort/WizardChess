@@ -19,6 +19,17 @@ void app_main()
     uint8_t rx_data[3] = {0};
     i2c_comm_read(0x67, rx_data, sizeof(rx_data));
     printf("%X %X %X\n", rx_data[0], rx_data[1], rx_data[2]);
+    while(1) {
+        if(rx_data[0] != 0x1A && rx_data[1] != 0x2B && rx_data[2] != 0x3C) {
+            i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+            vTaskDelay(pdMS_TO_TICKS(1000));
+            i2c_comm_read(0x67, rx_data, sizeof(rx_data));
+            printf("%X %X %X\n", rx_data[0], rx_data[1], rx_data[2]);
+        }
+        else {
+            break;
+        }
+    }   
 
     // Lock the mutex
     if (lvgl_port_lock(-1)) {

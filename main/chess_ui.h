@@ -15,6 +15,10 @@ void square_event_handler(lv_event_t *e);
 
 void update_board(void);
 
+void legal_moves(void);
+
+static void reset_board_colors(void);
+
 #ifdef __cplusplus
 extern "C" {
 #endif

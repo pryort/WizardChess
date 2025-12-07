@@ -42,6 +42,13 @@ void square_event_handler(lv_event_t *e) {
     const char *text = lv_label_get_text(label);
     btn_userdata_t *ud = lv_obj_get_user_data(btn);
     uint8_t tx_data[] = {0xAA, 0x00};
+
+    /*for (int i = 0; i < BOARD_W; i++) {
+        for (int j = 0; j < BOARD_W; j++) {
+            lv_obj_set_style_bg_color(board_square[j][i], lv_color_hex(0x008000), LV_PART_MAIN);
+        }
+    }*/
+
     if (*ud->user_turn) {
         if (last_btn != NULL) {
             tx_data[0] = 0xFF;
@@ -52,6 +59,9 @@ void square_event_handler(lv_event_t *e) {
             if (ud->user_color == '1') {
                 if(strcmp(text, "♔") && strcmp(text, "♕") && strcmp(text, "♖") && strcmp(text, "♗") && strcmp(text, "♘") && strcmp(text, "♙")) {
                     printf("legal move\n");
+
+                    reset_board_colors();
+
                     lv_label_set_text(label, last_text);
                     lv_label_set_text(last_label, "");
                     printf("move to (%d, %d)\n", ud->row, ud->col);
@@ -60,12 +70,16 @@ void square_event_handler(lv_event_t *e) {
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                     user_turn_flag = false;
                     update_board();
+                    user_turn_flag = true;
                     return;
                 }
             }
             else {
                 if(strcmp(text, "♚") && strcmp(text, "♛") && strcmp(text, "♜") && strcmp(text, "♝") && strcmp(text, "♞") && strcmp(text, "♟")) {
                     printf("legal move\n");
+
+                    reset_board_colors();
+
                     lv_label_set_text(label, last_text);
                     lv_label_set_text(last_label, "");
                     printf("move to (%d, %d)\n", ud->row, ud->col);
@@ -74,6 +88,7 @@ void square_event_handler(lv_event_t *e) {
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                     user_turn_flag = false;
                     update_board();
+                    user_turn_flag = true;
                     return;
                 }
             }
@@ -83,29 +98,35 @@ void square_event_handler(lv_event_t *e) {
             if(strcmp(text, "♔") == 0 || strcmp(text, "♕") == 0 || strcmp(text, "♖") == 0 || strcmp(text, "♗") == 0 || strcmp(text, "♘") == 0 || strcmp(text, "♙") == 0) {
                 printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
                 printf("%s\n", text);
+
+                reset_board_colors();
+
                 lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
                 tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                 user_turn_flag = true;
                 last_btn = btn;
+                legal_moves();
             }
         }
         else {
             if(strcmp(text, "♚") == 0 || strcmp(text, "♛") == 0 || strcmp(text, "♜") == 0 || strcmp(text, "♝") == 0 || strcmp(text, "♞") == 0 || strcmp(text, "♟") == 0) {
                 printf("Selected piece: (%d, %d)\n", ud->row, ud->col);
                 printf("%s\n", text);
+
+                reset_board_colors();
+
                 lv_obj_set_style_bg_color(btn, lv_color_hex(0x008000), LV_PART_MAIN);
                 tx_data[0] = 0xAA;
                 tx_data[1] = 16*ud->row + ud->col;
                 i2c_comm_write(0x67, tx_data, sizeof(tx_data));
                 user_turn_flag = true;
                 last_btn = btn;
+                legal_moves();
             }
         }
     }
-    
-
     printf("Square clicked\n");
 }
 
@@ -117,7 +138,7 @@ void create_chessboard(char *mode) {
     lv_scr_load(scr);
     printf("mode %c, color %c\n", mode[0], mode[1]);
     uint8_t tx_data[] = {0x3D, 0x00};
-    bool user_turn = false;
+    //bool user_turn = false;
     
 
     if(mode[0] == 'u') {
@@ -133,6 +154,8 @@ void create_chessboard(char *mode) {
                 // colors chess board
                 lv_color_t def_col = ((i + j) % 2 == 1) ? lv_color_hex(0x808080): lv_color_hex(0xFFFFFF);
                 lv_obj_set_style_bg_color(btn, def_col, LV_PART_MAIN);
+                lv_obj_set_style_border_width(btn, 1, LV_PART_MAIN);
+                lv_obj_set_style_border_color(btn, lv_color_hex(0x000000), LV_PART_MAIN);
 
                 lv_obj_t *label = lv_label_create(btn);
                 lv_label_set_text(label, "");
@@ -287,7 +310,9 @@ void create_chessboard(char *mode) {
             printf("user is black\n");
             user_turn_flag = false;
             i2c_comm_write(0x67, tx_data, sizeof(tx_data));
+            vTaskDelay(pdMS_TO_TICKS(1000));
             update_board();
+            user_turn_flag = true;
         }
     }
     else {
@@ -508,41 +533,124 @@ void update_board() {
 
     const char *pieces[] = {
         "", "♟", "♝", "♞", "♜", "♛", "♚", "♙", "♗", "♘", "♖", "♕", "♔"
+    //   0    1    2     3     4     5     6     7    8     9     A     B    C
     };
+
+    
+    uint8_t new_board[33] = {0};
+    i2c_comm_read(0x67, new_board, sizeof(new_board));
+
+    while(1) {
+        if(new_board[0] == 0x2F) {
+            
+        }
+        else if(new_board[0] == 0x3F) {
+
+        }
+        else if(new_board[0] != 0xAA) {
+            printf("wrong format %X\n", new_board[0]);
+            for(int i = 0; i < 32; i++) {
+                printf("%02X", new_board[i]);
+            }
+            printf("\n");
+            vTaskDelay(pdMS_TO_TICKS(1000));
+            i2c_comm_read(0x67, new_board, sizeof(new_board));
+        }
+        else {
+
+            uint8_t squares[64];
+
+            for(int i = 0; i < 32; i++) {
+                uint8_t b = new_board[i + 1];
+                squares[2*i] = (b >> 4) & 0x0F;
+                squares[2*i + 1] = b & 0x0F;
+            }
+
+
+
+            printf("Board state received:\n");
+            for (int i = 0; i < BOARD_W; i++) {
+                for (int j = 0; j < BOARD_W; j++) {
+                    lv_label_set_text(board_piece[j][i], pieces[squares[8*i+j]]);
+                    printf("%X", squares[8*i+j]);
+                    /*if(strcmp(pieces[squares[8*i+j]], "") == 0) {
+                        printf("  ");
+                    }
+                    else {
+                        printf("%s ", pieces[squares[8*i+j]]);
+                    }*/
+                }
+                printf("\n");
+                
+            }
+            return;
+        }
+    
+    }
+}
+
+//possible moves will receive an array where each nibble is a square and a F will be a possible move, while a 0 is not a possible move
+
+void legal_moves() {
 
     uint8_t new_board[33] = {0};
     i2c_comm_read(0x67, new_board, sizeof(new_board));
-    
-    if(new_board[0] != 0xAA) {
-        printf("wrong format %X\n", new_board[0]);
-        for(int i = 0; i < 32; i++) {
-            printf("%02X", new_board[i]);
+
+    while(1) {
+        if(new_board[0] != 0xDD) {
+            printf("wrong format %X\n", new_board[0]);
+            for(int i = 0; i < 32; i++) {
+                printf("%02X", new_board[i]);
+            }
+            printf("\n");
+            vTaskDelay(pdMS_TO_TICKS(10));
+            i2c_comm_read(0x67, new_board, sizeof(new_board));
         }
-        printf("\n");
-        return;
+        else {
+
+            uint8_t squares[64];
+
+            for(int i = 0; i < 32; i++) {
+                uint8_t b = new_board[i + 1];
+                squares[2*i] = (b >> 4) & 0x0F;
+                squares[2*i + 1] = b & 0x0F;
+            }
+
+
+
+            printf("Legal moves received:\n");
+            for (int i = 0; i < BOARD_W; i++) {
+                for (int j = 0; j < BOARD_W; j++) {
+                    if(squares[8*i+j]) {
+                        lv_obj_set_style_bg_color(board_square[j][i], lv_color_hex(0x008000), LV_PART_MAIN);
+                        printf("%X", squares[8*i+j]);
+                    }
+                    /*if(strcmp(pieces[squares[8*i+j]], "") == 0) {
+                        printf("  ");
+                    }
+                    else {
+                        printf("%s ", pieces[squares[8*i+j]]);
+                    }*/
+                }
+                printf("\n");
+                
+            }
+            return;
+        }
+    
     }
+}
 
-    uint8_t squares[64];
-
-    for(int i = 0; i < 32; i++) {
-        uint8_t b = new_board[i + 1];
-        squares[2*i] = (b >> 4) & 0x0F;
-        squares[2*i + 1] = b & 0x0F;
-    }
-
-
-
-    printf("Board state received:\n");
+static void reset_board_colors(void) {
     for (int i = 0; i < BOARD_W; i++) {
         for (int j = 0; j < BOARD_W; j++) {
-            lv_label_set_text(board_piece[j][i], pieces[squares[8*i+j]]);
-            if(strcmp(pieces[squares[i+j]], "") == 0) {
-                printf("  ");
-            }
-            else {
-                printf("%s ", pieces[squares[i+j]]);
-            }
+            lv_obj_t *btn = board_square[i][j];
+            //if (!btn) continue;
+
+            btn_userdata_t *ud = lv_obj_get_user_data(btn);
+            //if (!ud) continue;
+
+            lv_obj_set_style_bg_color(btn, ud->default_color, LV_PART_MAIN);
         }
-        printf("\n");
     }
 }

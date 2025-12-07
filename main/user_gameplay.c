@@ -1,6 +1,7 @@
 #include "user_gameplay.h"
 #include "chess_ui.h"
 #include "color_pick.h"
+#include "final_screen.h"
 #include "font_chess_35_lvgl_8.h"
 #include "Spec_size_font_60.h"
 #include <stdio.h>
@@ -28,8 +29,8 @@ void create_starting_menu(void) {
 
     // button 1
     lv_obj_t *btn1 = lv_btn_create(scr);
-    lv_obj_set_size(btn1, 250, 350);
-    lv_obj_set_pos(btn1, 15, 120);
+    lv_obj_set_size(btn1, 379, 350);
+    lv_obj_set_pos(btn1, 14, 120);
     char *physical = lv_mem_alloc(sizeof(char));
     *physical = 'p';
     lv_obj_add_event_cb(btn1, button_event_handler, LV_EVENT_CLICKED, physical);
@@ -50,8 +51,8 @@ void create_starting_menu(void) {
 
     // button 2
     lv_obj_t *btn2 = lv_btn_create(scr);
-    lv_obj_set_size(btn2, 250, 350);
-    lv_obj_set_pos(btn2, 275, 120);
+    lv_obj_set_size(btn2, 379, 350);
+    lv_obj_set_pos(btn2, 407, 120);
     char *user = lv_mem_alloc(sizeof(char));
     *user = 'u';
     lv_obj_add_event_cb(btn2, button_event_handler, LV_EVENT_CLICKED, user);    
@@ -72,6 +73,7 @@ void create_starting_menu(void) {
     
 
     // button 3
+    /*
     lv_obj_t *btn3 = lv_btn_create(scr);
     lv_obj_set_size(btn3, 250, 350);
     lv_obj_set_pos(btn3, 535, 120);
@@ -92,6 +94,7 @@ void create_starting_menu(void) {
     lv_obj_t *online_image = lv_label_create(btn3);
     lv_obj_set_style_text_font(online_image, &Spec_size_font_60, 0);
     lv_label_set_text(online_image, "⊕");
+    */
     
     lv_scr_load(scr);
 }

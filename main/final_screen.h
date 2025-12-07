@@ -1,5 +1,5 @@
-#ifndef COLOR_PICK_H
-#define COLOR_PICK_H
+#ifndef FINAL_SCREEN_H
+#define FINAL_SCREEN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -7,11 +7,14 @@ extern "C" {
 
 #include "lvgl.h"
 
-void color_choice_menu(char mode);
+void win_screen(void);
+
+void lose_screen(void);
+
+void tie_screen(void);
 
 void color_event_handler(lv_event_t * e);
 
-void back_to_menu_event(lv_event_t *e);
 
 #ifdef __cplusplus
 extern "C" {
