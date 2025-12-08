@@ -7,6 +7,7 @@
 #include "esp_random.h"
 #include "driver/i2c.h"
 #include "i2c_main.h"
+#include "final_screen.h"
 
 #define X_START 150
 #define BUTTON_W 60
@@ -152,7 +153,7 @@ void create_chessboard(char *mode) {
                 lv_obj_set_pos(btn, X_START + i * BUTTON_W, 0 + j * BUTTON_W);
 
                 // colors chess board
-                lv_color_t def_col = ((i + j) % 2 == 1) ? lv_color_hex(0x808080): lv_color_hex(0xFFFFFF);
+                lv_color_t def_col = ((i + j) % 2 == 1) ? lv_color_hex(0xFFFFFF): lv_color_hex(0x808080);
                 lv_obj_set_style_bg_color(btn, def_col, LV_PART_MAIN);
                 lv_obj_set_style_border_width(btn, 1, LV_PART_MAIN);
                 lv_obj_set_style_border_color(btn, lv_color_hex(0x000000), LV_PART_MAIN);
@@ -330,7 +331,7 @@ void create_chessboard(char *mode) {
                 lv_obj_set_pos(square, X_START + i * BUTTON_W, 0 + j * BUTTON_W);
 
                 // colors chess board
-                lv_color_t def_col = ((i + j) % 2 == 1) ? lv_color_hex(0x808080): lv_color_hex(0xFFFFFF);
+                lv_color_t def_col = ((i + j) % 2 == 1) ? lv_color_hex(0xFFFFFF): lv_color_hex(0x808080);
                 lv_obj_set_style_bg_color(square, def_col, LV_PART_MAIN);
 
                 lv_obj_t *label = lv_label_create(square);
@@ -504,6 +505,13 @@ void create_chessboard(char *mode) {
     lv_obj_center(back_lbl);
 
     lv_obj_add_event_cb(back_btn, back_event, LV_EVENT_CLICKED, mode);
+
+    if(mode[0] == 'p') {
+        while (1) {
+                update_board();
+                vTaskDelay(pdMS_TO_TICKS(1000));
+            }
+    }
 }
 
 /*void update_board_white(lv_event_t *e) {
@@ -542,10 +550,20 @@ void update_board() {
 
     while(1) {
         if(new_board[0] == 0x2F) {
-            
+            win_screen();
+            return;
         }
         else if(new_board[0] == 0x3F) {
-
+            lose_screen();
+            return;
+        }
+        else if(new_board[0] == 0xEE) {
+            tie_screen();
+            return;
+        }
+        else if(new_board[0] == 0xCC) {
+            //promotion_screen();
+            return;
         }
         else if(new_board[0] != 0xAA) {
             printf("wrong format %X\n", new_board[0]);
@@ -654,3 +672,8 @@ static void reset_board_colors(void) {
         }
     }
 }
+/*
+void promotion_screen() {
+
+}
+*/

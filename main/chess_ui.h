@@ -17,6 +17,8 @@ void update_board(void);
 
 void legal_moves(void);
 
+//void promotion_screen(void);
+
 static void reset_board_colors(void);
 
 #ifdef __cplusplus
