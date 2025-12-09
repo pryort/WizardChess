@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "C:/Projects/WizardChess/build/CMakeFiles/bootloader"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/CMakeFiles/bootloader.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "C:/Projects/WizardChess/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "C:/Users/traep/wizard_chess/display/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 
