@@ -1,2 +1,2 @@
-source C:/Users/traep/wizard_chess/display/build/bootloader/gdbinit/symbols
-source C:/Users/traep/wizard_chess/display/build/bootloader/gdbinit/connect
+source C:/Projects/WizardChess/build/bootloader/gdbinit/symbols
+source C:/Projects/WizardChess/build/bootloader/gdbinit/connect

@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "final_screen.c" "i2c_main.c" "Spec_size_font_60.c" "font_chess_35_lvgl_8.c" "color_pick.c" "user_gameplay.c" "chess_ui.c" "waveshare_rgb_lcd_port.c" "main.c" "lvgl_port.c"
+    SRCS "final_screen.c" "ota_server.c" "i2c_main.c" "Spec_size_font_60.c" "font_chess_35_lvgl_8.c" "color_pick.c" "user_gameplay.c" "chess_ui.c" "waveshare_rgb_lcd_port.c" "main.c" "lvgl_port.c"
     INCLUDE_DIRS ".")
 
 idf_component_get_property(lvgl_lib lvgl__lvgl COMPONENT_LIB)

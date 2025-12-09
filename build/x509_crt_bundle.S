@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/traep/wizard_chess/display/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Projects/WizardChess/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)
