@@ -18,7 +18,7 @@ static const char *TAG = "OTA";
 
 // --- Configuration ---
 #define WIFI_SSID      "WizardChess_Display"
-#define WIFI_PASS      "Wizrd"
+#define WIFI_PASS      "Wizard123"
 #define LOG_BUFFER_SIZE (4 * 1024)
 
 static RingbufHandle_t log_ringbuf = NULL;

@@ -4,6 +4,8 @@
 #include "ota_server.h"
 #include "nvs_flash.h"
 
+static const char *TAG_I2C = "I2C";
+
 
 void app_main()
 {
@@ -32,6 +34,7 @@ void app_main()
 
     uint8_t rx_data[3] = {0};
     i2c_comm_read(0x67, rx_data, sizeof(rx_data));
+    ESP_LOGI(TAG_I2C, "Board bytes: %02X %02X %02X", rx_data[0], rx_data[1], rx_data[2]);
     printf("%X %X %X\n", rx_data[0], rx_data[1], rx_data[2]);
     while(1) {
         if(rx_data[0] != 0x1A && rx_data[1] != 0x2B && rx_data[2] != 0x3C) {

@@ -575,7 +575,6 @@ void update_board() {
             i2c_comm_read(0x67, new_board, sizeof(new_board));
         }
         else {
-
             uint8_t squares[64];
 
             for(int i = 0; i < 32; i++) {
