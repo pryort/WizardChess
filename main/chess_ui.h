@@ -13,13 +13,11 @@ void back_event(lv_event_t *e);
 
 void square_event_handler(lv_event_t *e);
 
-void update_board(void);
+void update_board(int patience, int delay);
 
 void legal_moves(void);
 
 //void promotion_screen(void);
-
-static void reset_board_colors(void);
 
 #ifdef __cplusplus
 extern "C" {
