@@ -88,8 +88,9 @@ void square_event_handler(lv_event_t *e) {
                     last_btn = NULL;
                     tx_data[1] = 16*ud->row + ud->col;
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-                    user_turn_flag = false;
                     update_board(10, 1000);
+                    user_turn_flag = false;
+                    update_board(60, 1000);
                     user_turn_flag = true;
                     return;
                 }
@@ -106,8 +107,9 @@ void square_event_handler(lv_event_t *e) {
                     last_btn = NULL;
                     tx_data[1] = 16*ud->row + ud->col;
                     i2c_comm_write(0x67, tx_data, sizeof(tx_data));
-                    user_turn_flag = false;
                     update_board(10, 1000);
+                    user_turn_flag = false;
+                    update_board(60, 1000);
                     user_turn_flag = true;
                     return;
                 }
@@ -601,7 +603,6 @@ void update_board(int patience, int delay) {
         }
         vTaskDelay(pdMS_TO_TICKS(delay));
     }
-    create_starting_menu();
 }
 
 void legal_moves() {
@@ -643,7 +644,6 @@ void legal_moves() {
         }
         vTaskDelay(pdMS_TO_TICKS(30));
     }
-    create_starting_menu();
 }
 
 static void reset_board_colors(void) {
