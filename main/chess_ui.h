@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include "lvgl.h"
+#include <stdbool.h>
 
 void create_chessboard(char *mode);
 
@@ -13,7 +14,7 @@ void back_event(lv_event_t *e);
 
 void square_event_handler(lv_event_t *e);
 
-void update_board(int patience, int delay);
+bool update_board(int patience, int delay);
 
 void legal_moves(void);
 
