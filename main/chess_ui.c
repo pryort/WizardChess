@@ -34,6 +34,28 @@ static bool user_turn_flag = false;
 
 static void reset_board_colors(void);
 
+static void full_reset_button(lv_event_t *e) {
+    lv_event_code_t code = lv_event_get_code(e);
+
+    if(code == LV_EVENT_CLICKED) {
+        uint8_t msg[2] = {0x66, 0x66};
+
+        i2c_comm_write(0x67, msg, sizeof(msg));
+        vTaskDelay(pdMS_TO_TICKS(100));
+        esp_restart();
+    }
+}
+
+static void home_boy(lv_event_t *e) {
+    lv_event_code_t code = lv_event_get_code(e);
+
+    if(code == LV_EVENT_CLICKED) {
+        uint8_t msg[2] = {0x77, 0x78};
+
+        i2c_comm_write(0x67, msg, sizeof(msg));
+    }
+}
+
 static void physical_board_task(void *pvParameters)
 {
     (void)pvParameters;
@@ -524,6 +546,26 @@ void create_chessboard(char *mode) {
     lv_obj_center(back_lbl);
 
     lv_obj_add_event_cb(back_btn, back_event, LV_EVENT_CLICKED, mode);
+
+    // creates reset button
+    lv_obj_t *reset_btn = lv_btn_create(scr);
+    lv_obj_set_size(reset_btn, 60, 60);
+    lv_obj_set_pos(reset_btn, 730, 400);
+
+    lv_obj_set_style_shadow_width(reset_btn, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(reset_btn, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
+
+    lv_obj_add_event_cb(reset_btn, full_reset_button, LV_EVENT_CLICKED, mode);
+
+    // creates home gantry button
+    lv_obj_t *home_gantry_btn = lv_btn_create(scr);
+    lv_obj_set_size(home_gantry_btn, 60, 60);
+    lv_obj_set_pos(home_gantry_btn, 730, 10);
+
+    lv_obj_set_style_shadow_width(home_gantry_btn, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(home_gantry_btn, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
+
+    lv_obj_add_event_cb(home_gantry_btn, home_boy, LV_EVENT_CLICKED, mode);
 
     if (mode[0] == 'p') {
         // Start background board-update task only once
