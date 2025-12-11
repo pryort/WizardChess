@@ -38,7 +38,7 @@ static void full_reset_button(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
 
     if(code == LV_EVENT_CLICKED) {
-        uint8_t msg[2] = {0x66, 0x66};
+        uint8_t msg[2] = {0x11, 0x11};
 
         i2c_comm_write(0x67, msg, sizeof(msg));
         vTaskDelay(pdMS_TO_TICKS(100));
